@@ -1,4 +1,4 @@
-
+.content-container{
 .row {
     display: flex;
     align-items: center;
@@ -12,9 +12,20 @@
     min-width: 300px;
 }
 
-.col-2 img {
-    max-width: 100%;
+
+
+.bg-image {
+    width: 500px;
     padding-left: 100px;
+    height: 500px;
+    position: absolute;
+    opacity: 0;
+    top: 70px;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.bg-image.active {
+    opacity: 1;
 }
 
 .col-2 h1 {
@@ -49,3 +60,5 @@
     transition: 1s;
 }
 
+
+}

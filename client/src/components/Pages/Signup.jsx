@@ -8,6 +8,9 @@ import newRequest from "../../utils/newRequest.js";
 
 function Signup() {
   const [file, setFile] = useState(null);
+  const [portfolioImgs, setPortfolioImgs] = useState([]);
+  
+
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -18,6 +21,7 @@ function Signup() {
   });
   
   const [isEmailAlreadyRegistered, setIsEmailAlreadyRegistered] = useState(false);
+  const [userNameTaken, setUsernameTaken] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,6 +36,11 @@ function Signup() {
     });
   };
 
+    const handlePortfolioImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setPortfolioImgs(files);
+  };
+  
  const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -40,52 +49,41 @@ function Signup() {
     return;
   }
 
-  if (isEmailAlreadyRegistered) {
-    alert("This email is already registered.");
-    return;
-  }
 
-  const url = file ? await upload(file) : "";
+   const url = file ? await upload(file) : "";
+   
+     let portfolioImgUrls = [];
+  
+  for (const imgFile of portfolioImgs) {
+    const imgUrl = imgFile ? await upload(imgFile) : "";
+    portfolioImgUrls.push(imgUrl);
+  }
 
   try {
     const res = await newRequest.post("/auth/register", {
       ...user,
       image: url,
+      portfolioImg: portfolioImgUrls
     });
+    // localStorage.setItem("activeUser", JSON.stringify(res.data)); // Set activeUser in localStorage
+    const userID = res.data._id;
+    navigate(`/verificationToken/${userID}`);
 
-    localStorage.setItem("activeUser", JSON.stringify(res.data)); // Set activeUser in localStorage
-
-    navigate("/");
   } catch (err) {
     if (err.response && err.response.status === 409) {
       setIsEmailAlreadyRegistered(true);
-    } else {
+      console.log(err);
+    }
+    else if (err.response && err.response.status === 410) {
+      setUsernameTaken(true);
+      console.log(err);
+    }
+    else {
       console.log(err);
       alert("An error occurred. Please try again later.");
     }
   }
 };
-
-
-  const handleEmailChange = async (e) => {
-    const email = e.target.value;
-    setUser((prev) => ({ ...prev, email }));
-
-    if (email) {
-      try {
-        const response = await newRequest.get(`/check-email?email=${email}`);
-        if (response.data.exists) {
-          setIsEmailAlreadyRegistered(true);
-        } else {
-          setIsEmailAlreadyRegistered(false);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      setIsEmailAlreadyRegistered(false);
-    }
-  };
 
   return (
 <div className="signup">
@@ -93,7 +91,7 @@ function Signup() {
       <form onSubmit={handleSubmit}>
         <div className="left">
           <h1>Create a new account</h1>
-          <label htmlFor="">Username *</label>
+          <label htmlFor="">Username: </label>
           <input
             name="username"
             type="text"
@@ -101,20 +99,23 @@ function Signup() {
             onChange={handleChange}
             value={user.username}
             required
-          />
-          <label htmlFor="">Email *</label>
+            />
+             {userNameTaken && (
+            <p className="error-message">Username already taken.</p>
+          )}
+          <label htmlFor="">Email: </label>
           <input
             name="email"
             type="email"
             placeholder="email"
-            onChange={handleEmailChange}
+            onChange={handleChange}
             value={user.email}
             required
           />
           {isEmailAlreadyRegistered && (
             <p className="error-message">Email already registered</p>
           )}
-          <label htmlFor="">Password *</label>
+          <label htmlFor="">Password: </label>
           <input
             name="password"
             type="password"
@@ -122,10 +123,19 @@ function Signup() {
             value={user.password}
             required
           />
-          <label htmlFor="">Profile Picture</label>
+          <label htmlFor="">Profile Picture: </label>
           <input
-            type="file"
+              type="file"
+               name="image"
             onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label htmlFor="">Highlight Images: </label>
+          <input
+              type="file"
+              name="portfolioImg"
+        accept="image/*"
+        multiple
+        onChange={handlePortfolioImageChange}
           />
           <button type="submit">Register</button>
         </div>

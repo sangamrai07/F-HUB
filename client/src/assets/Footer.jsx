@@ -1,53 +1,64 @@
-import React from 'react';
+import React from 'react'
 import './css/Footer.scss'
+import Fblogo from "../assets/img/fb.png"
+import YTlogo from "../assets/img/Yt.logo.jpg"
+import LKlogo from "../assets/img/LkdInlogo.png"
+import Instalogo from "../assets/img/InsLogo.jpg"
+import Twtlogo from "../assets/img/twitter.png"
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <footer>
-      <div className="footerLeft">
-        <div className="footerMenu">
-          <h1 className="fMenuTitle">Our Headquarter</h1>
-          <ul className="fList">
-            <li className="fListItem">Kathmandu Metropolitan,</li>
-            <li className="fListItem">Kathmandu, Nepal</li>
-          </ul>
+    <div className='footer'>
+        <div className="imgContainer">
+          <img src={Fblogo} alt="F" />
+          <img src={YTlogo} alt="F" />
+          <img src={ LKlogo} alt="F" />
+          <img src={Instalogo} alt="F" />
+          <img src={Twtlogo} alt="F" />
         </div>
-        <div className="footerMenu">
-          <h1 className="fMenuTitle">General Queries</h1>
-          <ul className="fList">
-            <li className="fListItem">vastralaya@gmail.com</li>
-            <li className="fListItem">YourVastra12@gmail.com</li>
-          </ul>
-        </div>
-        <div className="footerMenu">
-          <h1 className="fMenuTitle">Call Us</h1>
-          <ul className="fList">
-            <li className="fListItem">+977 9892330032</li>
-            <li className="fListItem">+977 9800144777</li>
-          </ul>
-        </div>
-      </div>
-      <hr />
-      <div className="footerRight">
-        <div className="footerRightMenu">
-          <h1 className="fMenuTitle">Join Our Community</h1>
-          <div className="fMail">
-            <input type="text" placeholder="your@gmail.com" className="fInput" />
-            <button className="fButton">Join!</button>
+        <div className="textContainer">
+          <div className="textItem">
+            <h3>SERVICES</h3>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
           </div>
+          <div className="textItem">
+               <h3>COMMUNITY</h3>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
         </div>
-        <div className="footerRightMenu">
-          <h1 className="fMenuTitle1">Follow Us</h1>
-          <div className="fIcons">
-            <img src="" alt="X" className="fIcon" />
-            <img src="" alt="X" className="fIcon" />
-            <img src="" alt="X" className="fIcon" />
+          <div className="textItem">
+               <h3>CONTACT US</h3>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
           </div>
-        </div>
+          <div className="textItem">
+             <h3>COMPANY</h3>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+            <h5>Content 1</h5>
+          </div>
+          <div className="textItem">
+            <h3>Join Our Community</h3>
+            <Link to="/login"><button>Join Us</button></Link>
+          </div>
       </div>
-    </footer>
-  );
+      <div className="copyRight">
+        <h4>Terms of Use | Privacy Policy | Trademarks | License Agreements</h4>
+        <h5>Copyright &#169; 2016. All Rights Reserved</h5> 
+      </div>
+    </div>
+  )
 }
 
-export default Footer;
+export default Footer
+
 

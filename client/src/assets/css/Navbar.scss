@@ -1,31 +1,32 @@
-
+$image-path: '../img/searchIcon.jpg';
 
 .navbar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #010101;
-    color: white;
+    background-color: white;
+    color: black;
     position: sticky;
     top: 0;
     z-index: 999;
     transition: 0.5s all ease;
 
+  
     &.active {
         background-color: white;
         color: black;
 
-        button {
-            background-color: white !important;
-            color: #1dbf73 !important;
-            border: 1px solid #1dbf73 !important;
+        .registerBtn {
+            background-color: white ;
+            color: #1dbf73 ;
+            border: 1px solid #1dbf73;
+            font-size: medium
         }
     }
 
     .container {
-        width: 1400px;
-        display: flex;
-        align-items: center;
+        width: 1400px;   
+        display: flex;   
         justify-content: space-between;
         padding: 20px 0px;
 
@@ -43,6 +44,7 @@
 
             span {
                 white-space: nowrap;
+                
             }
 
             .user {
@@ -77,20 +79,6 @@
                 }
             }
 
-            button {
-                color: white;
-                padding: 10px 20px;
-                border-radius: 5px;
-                border: 1px solid white;
-                background-color: transparent;
-                cursor: pointer;
-
-                &:hover {
-                    background-color: #1dbf73;
-                    border-color: #1dbf73;
-                    transition: 1s;
-                }
-            }
         }
     }
 
@@ -110,4 +98,48 @@
         font-weight: 300;
         font-family: "Montserrat", sans-serif;
     }
+    .text{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .searchContainer{
+        display: flex;
+
+.searchBar{
+    margin-left: 20px;
+    width: 450px;
+    height: 35px;
+    padding: 6px;
+    outline-color: black;
+    border: 1px solid black;
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+}
+ button{
+    background-image: url($image-path);
+    width: 50px;
+    height: 49px;
+    background-size: cover ;
+    overflow: hidden;
+    border: 0.5px solid black;
+    margin-right: 300px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+ }
+}
+
+ .registerBtn {
+     color: white;
+     padding: 10px 20px;
+     border-radius: 5px;
+     border: 1px solid #1dbf73;
+    background-color: #1dbf73;
+    font-size: medium; 
+     cursor: pointer;
+
+     &:hover {
+         transform: scale(1.07);
+         transition: 0.7s;
+     }
+ }
 }

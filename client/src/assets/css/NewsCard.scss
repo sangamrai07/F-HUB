@@ -1,0 +1,46 @@
+.newsCard {
+    width: 550px;
+    height: 550px;
+    border: 1px solid rgb(228, 228, 228);
+    margin: 20px 25px 50px 25px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    img {
+        width: 97%;
+        margin: 8px 30px 8px 30px;
+
+        height: 250px;
+        object-fit: contain;
+    }
+
+    .info {
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+
+
+        p {
+            color: #111;
+            text-decoration: none;
+            list-style: none;
+        }
+
+    }
+
+    hr {
+        height: 0;
+        border: 0.5px solid rgb(228, 228, 228);
+    }
+
+    .details {
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+}

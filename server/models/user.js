@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-const {Schema} = mongoose
+const { Schema } = mongoose
+const bcrypt = require('bcrypt')
 
 const userTable = new Schema({
     image: {
@@ -9,15 +10,16 @@ const userTable = new Schema({
     username: {
         type: String,
         required: true,
+    
     }, 
     email: {
         type: String,
         required: true,
-        unique: true,
+        
     },
     password: {
         type: String,
-        required: true,
+        required: false,
     },
     description: {
         type: String,
@@ -27,9 +29,24 @@ const userTable = new Schema({
     isSeller: {
         type: Boolean,
         default: false,
-    }
+    },
+    verified: {
+        type: Boolean,
+        default: false,
+        required: true,
+    },
+    portfolioImg: {
+        type: [String],
+        required: false,
+        default: []
+    },
 }, {
     timestamps: true
 })
+
+userTable.methods.comparePassword = async function (password) {
+    const result =  bcrypt.compareSync(password, this.password);
+    return result
+}
 
 module.exports = mongoose.model("User", userTable);

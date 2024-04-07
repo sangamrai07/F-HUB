@@ -1,48 +1,70 @@
 import React from 'react'
 import '../Css/AllChat.scss'
 import { Link } from 'react-router-dom'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import moment from 'moment'
+import newRequest from '../../utils/newRequest';
 
 function AllChat() {
-   const activeUser = {
-    id: 7,
-    username: "Ramesh",
-    isSeller: false,
-   };
-   const message = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-  maxime cum corporis esse aspernatur laborum dolorum? Animi
-  molestias aliquam,.`;
+
+  const queryClient = useQueryClient()
+  const activeUser = JSON.parse(localStorage.getItem("activeUser"));
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ['allChats'],
+    queryFn: () =>
+      newRequest
+        .get('/allChats').then((res) => {
+      return res.data;
+      })
+  });
+
+    const mutation = useMutation({
+    mutationFn: (ChatBoxID) => {
+      return newRequest.put(`/allChats/${ChatBoxID}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["allChats"]);
+    },
+  });
+
+  const handleRead = (ChatBoxID) => {
+    mutation.mutate(ChatBoxID);
+  };
+
   return (
   
     <div className='allChat'>
-      <div className="container">
+      {isPending ? "Pending" : error ? "Error Occurred" :
+        <div className="container">
         <div className="title">
           <h1>All Messages</h1>
         </div>
         <table>
           <tr>
-            <th>Buyer</th>
+            <th>{activeUser.isSeller ? "Buyer" : "Seller"}</th>
             <th>Recent Message</th>
             <th>Date</th>
              <th>Action</th>
-          </tr>
-          <tr>
-            <td>Ramesh</td>
-            <td>  <Link to="/singleChat/123" className="link">
-                {message.substring(0, 100)}...
+            </tr>
+            {data.map((chat)=>(          <tr key={chat.ChatBoxID}>
+            <td>{activeUser.isSeller ? chat.buyerId : chat.sellerId}</td>
+            <td>  <Link to={`/singleChat/${chat.ChatBoxID}`} className="link">
+                {chat?.recentMessage?.substring(0, 100)}...
               </Link>.</td>
-            <td>1 day ago</td>
-            <td><button>Mark As Read</button></td>
-          </tr>
-           <tr>
-            <td>Ramesh</td>
-            <td> <Link to="/singleChat/123" className="link">
-                {message.substring(0, 100)}...
-              </Link> </td>
-            <td>1 day ago</td>
-            <td><button>Mark as Read</button></td>
-          </tr>
+              <td>{moment(chat.updatedAt).fromNow()}</td>
+              <td>
+ {((activeUser.isSeller && !chat.readBySeller) ||
+                    (!activeUser.isSeller && !chat.readByBuyer)) && (
+                    <button onClick={() => handleRead(chat.ChatBoxID)}>
+                      Mark as Read 
+                    </button>
+                  )}
+              </td>
+          </tr>))}
+
         </table>
-      </div>
+      </div>}
     </div>
   )
 }

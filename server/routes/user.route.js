@@ -4,6 +4,6 @@ const verifyToken = require("../utilities/jwtoken.js");
 const router = express.Router();
 
 router.delete("/:id", verifyToken, deleteUser);
-router.get("/:id", verifyToken, displayUser);
+router.get("/:id", displayUser);
 module.exports = router;
 

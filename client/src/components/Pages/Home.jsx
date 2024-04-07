@@ -1,12 +1,14 @@
 import React from 'react'
 import Content from '../../assets/Content'
-import CardSlider from '../../assets/CardSlider'
+
+import GridImages from '../../assets/GridImages.jsx'
+
 
 function Home() {
   return (
     <div>
       <Content />
-      <CardSlider/>
+      <GridImages/>
     </div>
   )
 }

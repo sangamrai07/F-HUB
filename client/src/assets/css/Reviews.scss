@@ -1,0 +1,61 @@
+.reviews {
+    
+
+.addReview {
+    margin-top: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+
+    .addReview input[type="text"] {
+        width: 672px;
+        height: 30px;
+        padding: 8px 15px;
+        border: 2px solid #ccc;
+        border-radius: 9px;
+        font-size: 16px;
+        margin-right: 10px;
+        transition: all 0.3s ease;
+    }
+
+         .addReview button {
+             padding: 8px 15px;
+            height: 50px;
+             border: 2px solid #ccc;
+             border-radius: 9px;
+             font-size: 16px;
+             margin-right: 10px;
+             transition: all 0.3s ease;
+         }
+
+
+                  .addReview select
+                  {
+                      padding: 8px 15px;
+                      height: 49px;
+                      border: 2px solid #ccc;
+                      border-radius: 9px;
+                      font-size: 16px;
+                      margin-right: 10px;
+                      transition: all 0.3s ease;
+                  }
+
+    .addReview input[type="text"]:focus,
+    .addReview select:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .addReview button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .addReview button:hover {
+        background-color: #0ba610;
+        transition: 1s;
+    }
+
+}

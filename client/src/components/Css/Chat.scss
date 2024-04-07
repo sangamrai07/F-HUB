@@ -1,91 +1,87 @@
-.chat {
-    display: flex;
-    justify-content: center;
-
-    .container {
-        width: 1200px;
-        margin: 50px;
-
+.chat{
+    // Chat.scss
+    
+        .chat {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+    
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    
         .chatInfo {
-            font-weight: 300;
-            font-size: 13px;
-            color: #555;
-        }
-
-        .texts {
-            margin: 30px 0px;
-            padding: 50px;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: 500px;
-            overflow: scroll;
-
-            .message {
-                display: flex;
-                gap: 20px;
-                max-width: 600px;
-                font-size: 18px;
-
-                &.sender {
-                    flex-direction: row-reverse;
-                    align-self: flex-end;
-
-                    p {
-                        max-width: 500px;
-                        border-radius: 20px 0px 20px 20px;
-                        background-color: royalblue;
-                        color: white;
-                    }
-                }
-
-                img {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    object-fit: cover;
-                }
-
-                p {
-                    max-width: 500px;
-                    padding: 20px;
-                    background-color: rgb(244, 241, 241);
-                    border-radius: 0px 20px 20px 20px;
-                    color: gray;
-                    font-weight: 300;
-                }
-            }
-        }
-
-        hr {
-            height: 0;
-            border: 0.5px solid rgb(232, 230, 230);
+            justify-content: center;
             margin-bottom: 20px;
         }
-
+    
+        .texts {
+            margin: 0px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                height: 450px;
+                overflow: scroll;
+        }
+    
+        .sender {
+            align-self: flex-end;
+            max-width: 70%;
+            margin-top: 10px;
+            margin-left: auto;
+            background-color: #DCF8C6;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    
+        .sender img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    
+        .receiver {
+            max-width: 70%;
+            margin-top: 10px;
+            background-color: #F5F5F5;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    
+        .receiver img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    
         .chatInput {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            textarea {
-                width: 80%;
-                height: 50px;
-                padding: 10px;
-                border: 1px solid lightgray;
-                border-radius: 10px;
-            }
-
-            button {
-                background-color: #1dbf73;
-                padding: 20px;
-                color: white;
-                font-weight: 500;
-                border: none;
-                border-radius: 10px;
-                cursor: pointer;
-                width: 100px;
-            }
+            margin-top: 20px;
         }
-    }
+    
+        .chatInput textarea {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        
+        }
+    
+        .chatInput button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+    
+        .chatInput button:hover {
+            background-color: #0056b3;
+        }
 }

@@ -1,0 +1,45 @@
+.singleNews{
+    .container{
+        width: 100%;
+        margin: 20px 30px 20px 30px;
+
+    }
+
+    .imgContainer{
+        width: 70%;
+        border: 1px solid gray;
+        margin-bottom: 30px;
+
+        img{
+            width: 100%;
+        }
+    }
+
+    .comments{
+        margin: 20px 30px 20px 30px;
+        input{
+            width: 100%;
+            height: 38px;
+            padding: 4px;
+            border: 1px solid gray;
+            border-radius: 7px;
+        }
+        .btns{
+            margin-top: 10px;
+           
+
+            .add{
+                margin-right: 10px;
+                width: 50px;
+                    height: 30px;
+            }
+                        .cancel{
+                            margin-left: 10px;
+                            width: 65px;
+                            height: 30px;
+                        }
+        }
+
+    }
+
+}

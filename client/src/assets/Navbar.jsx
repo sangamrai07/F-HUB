@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './css/Navbar.scss';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import myImg from './clothes.png'
+import myImg from '../assets/img/user.jpg'
 import newRequest from '../utils/newRequest';
+import axios from 'axios';
+import SearchIcon from './img/searchIcon.jpg'
 
 function Navbar() {
   const [active, setActive] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+const [input, setInput] = useState("");
+
     
+
     const navigate = useNavigate()
 
   const { pathname } = useLocation();
@@ -34,6 +39,12 @@ function Navbar() {
     };
   }, []);
 
+    const handleSubmit = () => {
+    navigate(`/gigs?search=${input}`);
+  };
+
+  
+
   return (
     <>
       <div className={active || pathname !== '/' ? 'navbar active' : 'navbar'}>
@@ -42,35 +53,50 @@ function Navbar() {
             <Link className="link" to="/">
               <span className="text">Freelance-Hub</span>
             </Link>
+           
           </div>
+           <div className="searchContainer">
+              <input type="text"  onChange={(e) => setInput(e.target.value)} placeholder='Search...' className='searchBar' />
+            <button onClick={handleSubmit}></button>
+            </div>
           <div className="links">
-            <Link className="link" to="/">
-              About Us
+            <Link className="link" to="/gigs?category=All">
+              Gigs
             </Link>
             <Link className="link" to="/">
               Explore
             </Link>
-            {activeUser?.isSeller && <span>Switch to Seller</span>}
-            {!activeUser && <Link to='/signup'><button>Register</button></Link>}
+             <Link className="link" to="/jobs">
+              Jobs
+            </Link>
+              <Link className="link" to="/news">
+              News
+            </Link>
+            {!activeUser && <Link to='/signup'><button className='registerBtn'>Register</button></Link>}
             {activeUser && (
               <div className="user" onClick={() => setShowMenu(!showMenu)}>
-                <img src={activeUser.image || {myImg} } />
+                <img src={activeUser.image !== '' ? activeUser.image : myImg} />
                 <span>{activeUser?.name}</span>
                 {showMenu && (
                   <div className="options">
                     {activeUser?.isSeller && (
                       <>
                         <Link className="link" to="/myGigs">
-                          Gigs
+                          My Gigs
                         </Link>
-                        <Link className="link" to="/addGigs">
-                          Add New Gig
+                      </>
+                    )}
+                     {!activeUser?.isSeller && (
+                      <>
+                        <Link className="link" to="/myJobs">
+                          My Jobs
                         </Link>
                       </>
                     )}
                     <Link className="link" to="/allChat">
                       All Chat
                     </Link>
+                    
                     <Link className="link" to="/orders">
                       Orders
                     </Link>

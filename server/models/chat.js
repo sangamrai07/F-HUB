@@ -10,7 +10,7 @@ const chatTable = new Schema({
         type: String,
         required: true,
     }, 
-     Messages: {
+     messages: {
         type: String,
         required: true,
     }

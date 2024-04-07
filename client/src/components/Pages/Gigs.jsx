@@ -4,7 +4,7 @@ import { useState } from 'react';
 import GigCard from '../../assets/GigCard';
 import { useQuery } from '@tanstack/react-query';
 import newRequest from '../../utils/newRequest';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Gigs() {
 
@@ -13,7 +13,6 @@ function Gigs() {
   const minPrice = useRef();
   const maxPrice = useRef();
 
- 
 
  const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -28,12 +27,14 @@ function Gigs() {
   });
 
 
-  console.log(data);
+  
 
   const SortBy = (type) => {
     setSort(type);
     setShowMenu(false);
   };
+
+
 
   useEffect(() => {
     refetch()
@@ -46,9 +47,6 @@ function Gigs() {
   return (
     <div className='gigs'>
       <div className="container">
-        <span className='catName'>
-          Category : {category}
-        </span>
         <hr />
         <h1>{category}</h1>
         <div className="menu">
@@ -69,7 +67,7 @@ function Gigs() {
           </div>
         </div>
         <div className="cards">
-          {isPending ? "Extracting" : error ? "Error Occurred !" : data.map((gig) => (
+          {isPending ? "Extracting" : error ? "Error Occurred !!" : data.map((gig) => (
             <GigCard key={gig._id} item={gig} />
           ))}
         </div>

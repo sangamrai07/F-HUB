@@ -4,7 +4,6 @@ const createGig = async (req, res) => {
     if (!req.isSeller) { return res.status(403).send("This feature is for sellers only."); }
 
     const newGig = new Gig({
-        userID: req.userId,
         ...req.body,
     });
 
@@ -42,6 +41,7 @@ const deleteGig = async (req, res) => {
 
 const getAllGigs = async (req, res) => {
   const q = req.query;
+
   const filters = {
     ...(q.userID && { userID: q.userID }),
     ...(q.category && { category: q.category }), 
@@ -54,21 +54,45 @@ const getAllGigs = async (req, res) => {
     ...(q.search && { title: { $regex: q.search, $options: "i" } }),
   };
 
-  // If category is not provided, remove it from filters
-  if (!q.category) {
+  if (q.category === 'All') {
     delete filters.category;
   }
 
-  try {
-    const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
-    res.status(200).send(gigs);
-  } catch (err) {
-    console.log(err); // Log the error
-    res.status(500).send("Internal Server Error"); // Send an appropriate error response
-  }
+
+try {
+  const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
+  return res.status(200).send(gigs); 
+} catch (err) {
+  console.error(err);
+  return res.status(500).send("Internal Server Error");
+}
 };
 
+const editGig = async (req, res) => {
+    try {
+        const gig = await Gig.findById(req.params.id);
+        if (!gig) {
+            return res.status(404).send("Gig not found.");
+        }
 
+        if (gig.userID !== req.userId) {
+            return res.status(403).send('You do not own this gig.');
+        }
+
+        // Update the news post with the data from req.body
+        Object.assign(gig, req.body);
+        const updatedGig  = await gig .save();
+
+        res.status(200).send(updatedGig);
+    } catch (err) {
+        if (err.name === 'CastError') {
+            return res.status(400).send("Invalid news ID.");
+        } else {
+            console.error(err);
+            return res.status(500).send("Internal Server Error");
+        }
+    }
+};
 
 const getSingleGig = async (req, res) => {
   try {
@@ -88,4 +112,4 @@ const getSingleGig = async (req, res) => {
 };
 
 
-module.exports = {createGig, deleteGig, getAllGigs, getSingleGig}
+module.exports = {createGig, deleteGig, getAllGigs, getSingleGig, editGig}

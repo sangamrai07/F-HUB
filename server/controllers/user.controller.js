@@ -1,5 +1,6 @@
 const User = require('../models/user.js');
 const jwt = require('jsonwebtoken')
+const Gig = require('../models/gig.js')
 
 const deleteUser = async (req, res) => {
     try {
@@ -13,7 +14,8 @@ const deleteUser = async (req, res) => {
             return res.status(403).send("You aren't the owner of this account.");
         }
 
-        await User.findByIdAndDelete(req.params.id);
+      await User.findByIdAndDelete(req.params.id);
+       await Gig.deleteMany({ userID: req.params.id });
         res.status(200).send("User Deleted Successfully!");
     } catch (error) {
         console.log(error);

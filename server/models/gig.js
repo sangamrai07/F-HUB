@@ -14,6 +14,10 @@ const gigTable = new Schema({
         type: Number,
         default: 0,   
     },
+        sales: {
+      type: Number,
+      default: 0,
+    },
     starNumber: {
         type: Number,
         default: 0,
@@ -26,6 +30,14 @@ const gigTable = new Schema({
         type: String,
         required: true,
     },
+     revisionNumber: {
+      type: Number,
+      required: true,
+    },
+    features: {
+      type: [String],
+      required: false,
+    },
     price: {
         type: Number,
         required: true,
@@ -35,7 +47,7 @@ const gigTable = new Schema({
         required: false,
          },
     deliveryTime: {
-        type: Number,
+        type: String,
         required: true,
     },
      serviceTitle: {
